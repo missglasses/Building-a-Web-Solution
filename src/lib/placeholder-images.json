@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "recipe-1",
+      "description": "A delicious plate of tomato and basil pasta.",
+      "imageUrl": "https://picsum.photos/seed/recipe1/600/400",
+      "imageHint": "pasta tomato"
+    },
+    {
+      "id": "recipe-2",
+      "description": "A sizzling pan of chicken and rice stir-fry.",
+      "imageUrl": "https://picsum.photos/seed/recipe2/600/400",
+      "imageHint": "chicken stirfry"
+    },
+    {
+      "id": "recipe-3",
+      "description": "A perfectly folded mushroom omelette.",
+      "imageUrl": "https://picsum.photos/seed/recipe3/600/400",
+      "imageHint": "omelette mushroom"
+    },
+    {
+      "id": "recipe-4",
+      "description": "A warm bowl of spicy lentil soup.",
+      "imageUrl": "https://picsum.photos/seed/recipe4/600/400",
+      "imageHint": "lentil soup"
+    },
+    {
+      "id": "recipe-5",
+      "description": "A skillet of garlic butter shrimp.",
+      "imageUrl": "https://picsum.photos/seed/recipe5/600/400",
+      "imageHint": "shrimp garlic"
+    },
+    {
+      "id": "recipe-fallback",
+      "description": "A creatively prepared meal.",
+      "imageUrl": "https://picsum.photos/seed/fallback/600/400",
+      "imageHint": "food meal"
+    }
+  ]
 }
