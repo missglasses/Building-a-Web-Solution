@@ -18,9 +18,14 @@ const GenerateRecipesFromIngredientsInputSchema = z.object({
 export type GenerateRecipesFromIngredientsInput =
   z.infer<typeof GenerateRecipesFromIngredientsInputSchema>;
 
+const RecipeSchema = z.object({
+  title: z.string().describe('The name of the recipe.'),
+  ingredients: z.array(z.string()).describe('The ingredients for the recipe.'),
+});
+
 const GenerateRecipesFromIngredientsOutputSchema = z.object({
   recipes: z
-    .array(z.string())
+    .array(RecipeSchema)
     .describe('An array of recipe suggestions based on the provided ingredients.'),
 });
 export type GenerateRecipesFromIngredientsOutput =
@@ -40,7 +45,7 @@ const prompt = ai.definePrompt({
 
 Ingredients: {{{ingredients}}}
 
-Suggest 3-5 recipes that can be made using the ingredients above.  Respond in a JSON format.  Each recipe should only be the name of the recipe, not a long list of instructions.`,
+Suggest 3-5 recipes that can be made using the ingredients above. Respond in a JSON format. Each recipe should include the recipe title and a list of ingredients.`,
 });
 
 const generateRecipesFromIngredientsFlow = ai.defineFlow(

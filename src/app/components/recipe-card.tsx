@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import type { Recipe } from '@/app/data/recipes';
 import { findImage } from '@/app/data/recipes';
+import { CheckCircle2 } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -36,9 +38,22 @@ export function RecipeCard({ recipe, onSelect }: RecipeCardProps) {
       )}
       <CardHeader>
         <CardTitle className="font-headline text-xl">{recipe.title}</CardTitle>
-      </CardHeader>
-      <CardContent className="flex-grow">
         <CardDescription>{recipe.description}</CardDescription>
+      </CardHeader>
+      <CardContent className="flex-grow flex flex-col">
+        <Separator className="my-2" />
+        <h4 className="font-bold text-sm mb-2">Ingredients</h4>
+        <ul className="space-y-1 text-sm text-muted-foreground flex-grow">
+          {recipe.ingredients.slice(0, 4).map((item, index) => (
+            <li key={index} className="flex items-start">
+              <CheckCircle2 className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
+              <span className="line-clamp-1">{item}</span>
+            </li>
+          ))}
+          {recipe.ingredients.length > 4 && (
+             <li className="text-xs text-center text-muted-foreground/80 pt-1">...and more</li>
+          )}
+        </ul>
       </CardContent>
     </Card>
   );

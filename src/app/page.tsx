@@ -10,9 +10,12 @@ import { allRecipes, Recipe } from '@/app/data/recipes';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import { UtensilsCrossed } from 'lucide-react';
+import type { GenerateRecipesFromIngredientsOutput } from '@/ai/flows/generate-recipes-from-ingredients';
+
+type GeneratedRecipe = GenerateRecipesFromIngredientsOutput['recipes'][number];
 
 export default function Home() {
-  const [generatedRecipeTitles, setGeneratedRecipeTitles] = useState<string[]>([]);
+  const [generatedRecipes, setGeneratedRecipes] = useState<GeneratedRecipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -21,48 +24,50 @@ export default function Home() {
     setLoading(true);
     setError(null);
     setSelectedRecipe(null);
-    setGeneratedRecipeTitles([]);
+    setGeneratedRecipes([]);
 
     const result = await handleGenerateRecipesAction(ingredients);
 
     if (result.success && result.recipes) {
-      setGeneratedRecipeTitles(result.recipes);
+      setGeneratedRecipes(result.recipes);
     } else {
       setError(result.error ?? 'An unknown error occurred.');
     }
     setLoading(false);
   };
 
-  const handleSelectRecipe = (title: string) => {
-    const recipeData = allRecipes.find((r) => r.title.toLowerCase() === title.toLowerCase());
-    if (recipeData) {
-      setSelectedRecipe(recipeData);
-    } else {
-      // Fallback for recipes that might be generated but not in our mock data
-      const fallbackRecipe: Recipe = {
-        id: title.replace(/\s+/g, '-').toLowerCase(),
-        title: title,
-        description: 'A delicious dish to try.',
-        ingredients: ['Your ingredients', 'Love'],
-        instructions: ['Combine your ingredients.', 'Cook with love.', 'Enjoy!'],
-        imageId: 'recipe-fallback',
-        imageHint: 'food meal',
-      };
-      setSelectedRecipe(fallbackRecipe);
-    }
+  const handleSelectRecipe = (recipe: Recipe) => {
+    setSelectedRecipe(recipe);
   };
 
   const handleBack = () => {
     setSelectedRecipe(null);
   };
 
-  const getFilteredRecipes = () => {
-    return allRecipes.filter((recipe) =>
-      generatedRecipeTitles.some((title) => title.toLowerCase() === recipe.title.toLowerCase())
-    );
+  const getDisplayRecipes = () => {
+    if (generatedRecipes.length === 0) return [];
+
+    const matchedRecipes = generatedRecipes
+      .map(genRecipe => {
+        const existingRecipe = allRecipes.find(r => r.title.toLowerCase() === genRecipe.title.toLowerCase());
+        if (existingRecipe) {
+          return existingRecipe;
+        }
+        return {
+          id: genRecipe.title.replace(/\s+/g, '-').toLowerCase(),
+          title: genRecipe.title,
+          description: 'A new recipe suggestion from our AI chef!',
+          ingredients: genRecipe.ingredients,
+          instructions: ['Ask our AI chef for detailed instructions!'],
+          imageId: 'recipe-fallback',
+          imageHint: 'food meal',
+        } as Recipe;
+      });
+
+    return matchedRecipes;
   };
 
-  const filteredRecipes = getFilteredRecipes();
+  const displayRecipes = getDisplayRecipes();
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -96,31 +101,18 @@ export default function Home() {
               <p className="text-center text-destructive mt-4 font-semibold">{error}</p>
             )}
 
-            {!loading && generatedRecipeTitles.length > 0 && (
+            {!loading && generatedRecipes.length > 0 && (
               <div>
                 <h2 className="font-headline text-3xl text-center my-8">Recipe Ideas</h2>
-                {filteredRecipes.length > 0 ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredRecipes.map((recipe) => (
-                      <RecipeCard key={recipe.id} recipe={recipe} onSelect={() => handleSelectRecipe(recipe.title)} />
-                    ))}
-                  </div>
-                ) : (
-                  <Card>
-                    <CardContent className="p-6 text-center">
-                      <p>Our AI came up with some creative ideas, but we don't have matching cards for them yet!</p>
-                      <ul className="mt-4 space-y-2">
-                        {generatedRecipeTitles.map(title => (
-                           <li key={title} className="font-semibold">{title}</li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {displayRecipes.map((recipe) => (
+                    <RecipeCard key={recipe.id} recipe={recipe} onSelect={() => handleSelectRecipe(recipe)} />
+                  ))}
+                </div>
               </div>
             )}
 
-            {!loading && generatedRecipeTitles.length === 0 && (
+            {!loading && generatedRecipes.length === 0 && (
               <Card className="mt-8 border-dashed">
                 <CardContent className="p-10 text-center">
                   <Image

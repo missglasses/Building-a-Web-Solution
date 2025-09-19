@@ -3,11 +3,12 @@
 import {
   generateRecipesFromIngredients,
   GenerateRecipesFromIngredientsInput,
+  GenerateRecipesFromIngredientsOutput,
 } from '@/ai/flows/generate-recipes-from-ingredients';
 
 export async function handleGenerateRecipesAction(ingredients: string): Promise<{
   success: boolean;
-  recipes?: string[];
+  recipes?: GenerateRecipesFromIngredientsOutput['recipes'];
   error?: string;
 }> {
   if (!ingredients || ingredients.trim().length < 3) {
