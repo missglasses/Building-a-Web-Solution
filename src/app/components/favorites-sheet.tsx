@@ -1,10 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { Heart, Sheet, Trash2, UtensilsCrossed } from 'lucide-react';
+import { Heart, Trash2, UtensilsCrossed } from 'lucide-react';
 import { useFavorites } from '@/app/hooks/use-favorites';
 import { Button } from '@/components/ui/button';
 import {
+  Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
