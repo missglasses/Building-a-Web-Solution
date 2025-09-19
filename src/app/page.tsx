@@ -116,7 +116,7 @@ export default function Home() {
               <Card className="mt-8 border-dashed">
                 <CardContent className="p-10 text-center">
                   <Image
-                    src="https://picsum.photos/seed/welcome/600/400"
+                    src="https://images.unsplash.com/photo-1565557623262-b9a32c7f1541?q=80&w=600&h=400&auto=format&fit=crop"
                     alt="Assortment of fresh vegetables"
                     width={600}
                     height={400}
