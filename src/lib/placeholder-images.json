@@ -2,39 +2,39 @@
   "placeholderImages": [
     {
       "id": "recipe-1",
-      "description": "A delicious plate of tomato and basil pasta.",
-      "imageUrl": "https://picsum.photos/seed/pasta/600/400",
-      "imageHint": "pasta tomato"
+      "description": "A delicious bowl of Butter Chicken.",
+      "imageUrl": "https://picsum.photos/seed/butter-chicken/600/400",
+      "imageHint": "butter chicken"
     },
     {
       "id": "recipe-2",
-      "description": "A sizzling pan of chicken and rice stir-fry.",
-      "imageUrl": "https://picsum.photos/seed/stirfry/600/400",
-      "imageHint": "chicken stirfry"
+      "description": "A healthy serving of Palak Paneer.",
+      "imageUrl": "https://picsum.photos/seed/palak-paneer/600/400",
+      "imageHint": "palak paneer"
     },
     {
       "id": "recipe-3",
-      "description": "A perfectly folded mushroom omelette.",
-      "imageUrl": "https://picsum.photos/seed/omelette/600/400",
-      "imageHint": "omelette mushroom"
+      "description": "A crispy Masala Dosa.",
+      "imageUrl": "https://picsum.photos/seed/masala-dosa/600/400",
+      "imageHint": "masala dosa"
     },
     {
       "id": "recipe-4",
-      "description": "A warm bowl of spicy lentil soup.",
-      "imageUrl": "https://picsum.photos/seed/soup/600/400",
-      "imageHint": "lentil soup"
+      "description": "A warm bowl of Dal Tadka.",
+      "imageUrl": "https://picsum.photos/seed/dal-tadka/600/400",
+      "imageHint": "dal tadka"
     },
     {
       "id": "recipe-5",
-      "description": "A skillet of garlic butter shrimp.",
-      "imageUrl": "https://picsum.photos/seed/shrimp/600/400",
-      "imageHint": "shrimp garlic"
+      "description": "A flavorful plate of Chicken Biryani.",
+      "imageUrl": "https://picsum.photos/seed/biryani/600/400",
+      "imageHint": "chicken biryani"
     },
     {
       "id": "recipe-fallback",
-      "description": "A creatively prepared meal.",
-      "imageUrl": "https://picsum.photos/seed/meal/600/400",
-      "imageHint": "food meal"
+      "description": "A delicious Indian meal.",
+      "imageUrl": "https://picsum.photos/seed/indian-thali/600/400",
+      "imageHint": "indian food"
     }
   ]
 }
